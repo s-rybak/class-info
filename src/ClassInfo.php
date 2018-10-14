@@ -16,26 +16,26 @@ class ClassInfo extends \ReflectionClass
      *
      * @param \ReflectionMethod[]|\ReflectionProperty[] $list
      *
-     * @return \App\TypesCount counted (properties/methods)
+     * @return \App\AccessModifiersCounter counted (properties/methods)
      *
      */
-    private function countTypes(array $list): TypesCount
+    private function countTypes(array $list): AccessModifiersCounter
     {
-        $counter = new TypesCount();
+        $counter = new AccessModifiersCounter();
 
         foreach ($list as $prop) {
             if ($prop->isPublic()) {
-                ++$counter->public;
+                $counter->incrementPublic();
                 continue;
             }
 
             if ($prop->isProtected()) {
-                ++$counter->protected;
+                $counter->incrementProtected();
                 continue;
             }
 
             if ($prop->isPrivate()) {
-                ++$counter->private;
+                $counter->incrementPrivate();
                 continue;
             }
         }
@@ -46,9 +46,9 @@ class ClassInfo extends \ReflectionClass
     /**
      * Counts properties separated by types
      *
-     * @return \App\TypesCount counted data (public,protected,private)
+     * @return \App\AccessModifiersCounter counted data (public,protected,private)
      */
-    public function getPropertiesTypesCount(): TypesCount
+    public function getPropertiesTypesCount(): AccessModifiersCounter
     {
         return $this->countTypes($this->getProperties());
     }
@@ -56,9 +56,9 @@ class ClassInfo extends \ReflectionClass
     /**
      * Counts methods separated by types
      *
-     * @return \App\TypesCount counted data (public,protected,private)
+     * @return \App\AccessModifiersCounter counted data (public,protected,private)
      */
-    public function getMethodsTypesCount(): TypesCount
+    public function getMethodsTypesCount(): AccessModifiersCounter
     {
         return $this->countTypes($this->getMethods());
     }
