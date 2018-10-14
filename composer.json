@@ -1,0 +1,31 @@
+{
+  "name": "Sergey R",
+  "description": "Class info library",
+  "keywords": ["class info", "info", "class"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sergey Rybak",
+      "email": "qwe@qwe.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.1",
+    "symfony/console":">=4.0",
+    "symfony/finder":">=4.1"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.12"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/",
+      "Test\\": "bin/"
+    }
+  },
+  "scripts": {
+    "cs-fix": "php-cs-fixer fix --allow-risky=yes"
+  }
+}
