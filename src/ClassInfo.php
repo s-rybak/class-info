@@ -1,98 +1,76 @@
 <?php
 /**
- * Counts class data
+ * Class that provide count of properties/methods
+ * separated by types
  *
- * @author Sergey R <qwe@qwe.com>
- *
+ *  @author Sergey R <qwe@qwe.com>
  */
 
 namespace App;
 
-class ClassInfo extends \ReflectionClass{
+class ClassInfo extends \ReflectionClass
+{
 
-	/**
-	 * Counts properties separated by types
-	 *
-	 * @return array counted data (public,protected,private)
-	 */
-	public function getPropertiesTypesCount(): array
-	{
+    /**
+     * Count properties/methods separated by types
+     *
+     * @param \ReflectionMethod[]|\ReflectionProperty[] $list
+     *
+     * @return \App\TypesCount counted (properties/methods)
+     *
+     */
+    private function countTypes(array $list): TypesCount
+    {
+        $counter = new TypesCount();
 
-		$properties = [
-			'public'    => 0,
-			'protected' => 0,
-			'private'   => 0,
-		];
+        foreach ($list as $prop) {
+            if ($prop->isPublic()) {
+                ++$counter->public;
+                continue;
+            }
 
-		foreach ($this->getProperties() as $prop){
+            if ($prop->isProtected()) {
+                ++$counter->protected;
+                continue;
+            }
 
-			if($prop->isPublic()){
-				++$properties['public'];
-				continue;
-			}
+            if ($prop->isPrivate()) {
+                ++$counter->private;
+                continue;
+            }
+        }
 
-			if($prop->isProtected()){
-				++$properties['protected'];
-				continue;
-			}
+        return $counter;
+    }
 
-			if($prop->isPrivate ()){
-				++$properties['private'];
-				continue;
-			}
+    /**
+     * Counts properties separated by types
+     *
+     * @return \App\TypesCount counted data (public,protected,private)
+     */
+    public function getPropertiesTypesCount(): TypesCount
+    {
+        return $this->countTypes($this->getProperties());
+    }
 
-		}
+    /**
+     * Counts methods separated by types
+     *
+     * @return \App\TypesCount counted data (public,protected,private)
+     */
+    public function getMethodsTypesCount(): TypesCount
+    {
+        return $this->countTypes($this->getMethods());
+    }
 
-		return $properties;
-
-	}
-
-	/**
-	 * Counts methods separated by types
-	 *
-	 * @return array counted data (public,protected,private)
-	 */
-	public function getMethodsTypesCount(): array
-	{
-
-		$methods = [
-			'public'    => 0,
-			'protected' => 0,
-			'private'   => 0,
-		];
-
-		foreach ($this->getMethods() as $prop){
-
-			if($prop->isPublic()){
-				++$methods['public'];
-				continue;
-			}
-
-			if($prop->isProtected()){
-				++$methods['protected'];
-				continue;
-			}
-
-			if($prop->isPrivate ()){
-				++$methods['private'];
-				continue;
-			}
-
-		}
-
-		return $methods;
-	}
-
-	/**
-	 * Returns class type
-	 *
-	 * @return string class type
-	 *
-	 */
-	public function getClassType():string
-	{
-
-		return $this->isAbstract() ? "Abstract" : ( $this->isFinal() ? "Final" : "" );
-
-	}
+    /**
+     * Returns class type
+     *
+     * @return string class type
+     *
+     */
+    public function getClassType(): string
+    {
+        return $this->isAbstract() ? 'Abstract' : ($this->isFinal() ? 'Final' : '');
+    }
 }

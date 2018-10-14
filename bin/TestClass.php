@@ -1,36 +1,55 @@
 <?php
 /**
- *  Test class.
- *  do nothing
+ * Test class
+ *
+ * class for test class info lib
+ *
+ * @author Sergey R <qwe@qwe.com>
  *
  */
-
 namespace Test;
 
-abstract class TestClass {
+abstract class TestClass
+{
+    private $prvateProp1;
+    private $prvateProp2;
+    private $prvateProp3;
 
-	private $prvateProp1;
-	private $prvateProp2;
-	private $prvateProp3;
+    public $publicProp1;
+    public $publicProp2;
+    public $publicProp3;
 
-	public $publicProp1;
-	public $publicProp2;
-	public $publicProp3;
+    protected $protctedProp1;
+    protected $protctedProp2;
+    protected $protctedProp3;
 
-	protected $protctedProp1;
-	protected $protctedProp2;
-	protected $protctedProp3;
+    public function publicMethod1()
+    {
+    }
+    public function publicMethod2()
+    {
+    }
+    public function publicMethod3()
+    {
+    }
 
-	public function publicMethod1(){}
-	public function publicMethod2(){}
-	public function publicMethod3(){}
+    private function privateMethod1()
+    {
+    }
+    private function privateMethod2()
+    {
+    }
+    private function privateMethod3()
+    {
+    }
 
-	private function privateMethod1(){}
-	private function privateMethod2(){}
-	private function privateMethod3(){}
-
-	protected function protectedMethod1(){}
-	protected function protectedMethod2(){}
-	protected function protectedMethod3(){}
-
+    protected function protectedMethod1()
+    {
+    }
+    protected function protectedMethod2()
+    {
+    }
+    protected function protectedMethod3()
+    {
+    }
 }
